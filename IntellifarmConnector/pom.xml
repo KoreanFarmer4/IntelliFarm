@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>edu.hsalbsig.intellifarm</groupId>
+	<artifactId>connector</artifactId>
+	<version>0.0.1</version>
+	<packaging>jar</packaging>
+
+	<name>Intellifarm Connector</name>
+	<url>https://github.com/HekatoncheirX/Intellifarm</url>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<jackson.version>2.9.8</jackson.version>
+		<log4j.version>2.11.1</log4j.version>
+	</properties>
+
+    <repositories>
+        <repository>
+            <id>mit-pub</id>
+            <name>MIT Public Repository</name>
+            <url>http://maven.mit.edu/nexus/content/repositories/public/</url>
+        </repository>
+     </repositories>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-api</artifactId>
+            <version>${log4j.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-core</artifactId>
+            <version>${log4j.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.paho</groupId>
+            <artifactId>org.eclipse.paho.client.mqttv3</artifactId>
+            <version>1.2.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-core</artifactId>
+            <version>${jackson.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>${jackson.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.sap.conn.jco</groupId>
+            <artifactId>sapjco3</artifactId>
+            <version>3.0.14</version>
+        </dependency>
+    </dependencies>
+    
+    <build>
+    	<finalName>${name}</finalName>
+	  	<plugins>
+	 		<plugin>
+	      		<artifactId>maven-compiler-plugin</artifactId>
+	      		<version>3.8.0</version>
+	      		<configuration>
+	        		<release>11</release>
+	      		</configuration>
+	    	</plugin>
+	    	<plugin>
+			    <groupId>org.apache.maven.plugins</groupId>
+			    <artifactId>maven-assembly-plugin</artifactId>
+			    <executions>
+			        <execution>
+			            <phase>package</phase>
+			            <goals>
+			                <goal>single</goal>
+			            </goals>
+			            <configuration>
+			                <archive>
+				                <manifest>
+				                    <mainClass>
+				                        edu.hsalbsig.intellifarm.connector.entrypoint.Entrypoint
+				                    </mainClass>
+				                </manifest>
+			                </archive>
+			                <descriptorRefs>
+			                    <descriptorRef>jar-with-dependencies</descriptorRef>
+			                </descriptorRefs>
+			            </configuration>
+			        </execution>
+			    </executions>
+			</plugin>
+	    </plugins>
+    </build>
+</project>
